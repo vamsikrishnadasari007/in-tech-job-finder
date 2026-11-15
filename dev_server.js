@@ -32,4 +32,4 @@ http.createServer(async (req, res) => {
   if (!file.startsWith(path.join(__dirname, "site")) || !fs.existsSync(file)) { res.statusCode = 404; return res.end("not found"); }
   res.setHeader("Content-Type", TYPES[path.extname(file)] || "application/octet-stream");
   fs.createReadStream(file).pipe(res);
-}).listen(PORT, () => console.log(`Jobs for My Love running at http://localhost:${PORT}`));
+}).listen(PORT, () => console.log(`First Tech Job running at http://localhost:${PORT}`));
