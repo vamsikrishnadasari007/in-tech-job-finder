@@ -22,7 +22,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import config  # noqa: E402
 from collectors import boards, foundit, instahyre, internshala, linkedin, naukri  # noqa: E402
-from collectors.jobspy_sites import glassdoor, indeed  # noqa: E402
+from collectors.jobspy_sites import indeed  # noqa: E402
 from pipeline import extract  # noqa: E402
 from pipeline.dedupe import dedupe_key  # noqa: E402
 from pipeline.filters import classify  # noqa: E402
@@ -30,7 +30,8 @@ from pipeline.model import Job  # noqa: E402
 
 COLLECTORS = {
     "Naukri": naukri, "foundit": foundit, "Instahyre": instahyre, "Internshala": internshala,
-    "Company site": boards, "Indeed": indeed, "Glassdoor": glassdoor, "LinkedIn": linkedin,
+    "Company site": boards, "Indeed": indeed, "LinkedIn": linkedin,
+    # Glassdoor (collectors/jobspy_sites.py) answers 403 to GitHub's servers, so it is a link instead.
 }
 # Minutes between quick runs per site (the timer fires every 30 min).
 CADENCE_MIN = {"Naukri": 30, "foundit": 30, "Instahyre": 60, "Internshala": 60,

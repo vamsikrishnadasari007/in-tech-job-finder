@@ -174,7 +174,7 @@ def work_mode_of(job: Job) -> str:
 # ---------------------------------------------------------------------------------------
 # Traps: fees, bonds, consultancies
 # ---------------------------------------------------------------------------------------
-_NEGATION = re.compile(r"\b(never|not|no|don'?t|won'?t|doesn'?t|zero|nil|free\s*of|beware|fraud|scam|fake)\b", re.I)
+_NEGATION = re.compile(r"\b(never|not|no|neither|nor|don'?t|won'?t|doesn'?t|zero|nil|free\s*of|beware|fraud|scam|fake)\b", re.I)
 
 
 def asks_for_money(text: str) -> bool:

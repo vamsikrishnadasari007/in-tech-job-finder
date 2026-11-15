@@ -228,3 +228,11 @@ def test_senior_internship_type_still_hidden():
 
 def test_cnc_programmer_not_dev():
     assert job("VMC CAM Programmer").hidden_reason == "not a developer role"
+
+
+def test_neither_charge_fee_is_fine():
+    assert not asks_for_money("Neither LTM nor any of its partners charge any candidate registration fee.")
+
+
+def test_training_and_internship_certificate_is_fine():
+    assert not asks_for_money("Training and internship certificates are provided on completion")

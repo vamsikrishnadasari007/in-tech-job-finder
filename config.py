@@ -159,7 +159,7 @@ SCAM = re.compile(
     r"(100\s*%|guaranteed?)\s*(job|placement|interview)s?|job\s*guarantee|placement\s*guarantee|"
     r"pay\s*after\s*(placement|getting\s*(a\s*)?job)|income\s*share\s*agreement|learn\s*(and|&)\s*earn|"
     r"pay\s*(rs\.?|inr|₹)\s*\d|course\s*(cum|\+)\s*(job|internship)|training\s*cum\s*(job|placement)|"
-    r"live\s*(project\s*)?training|training\s*(and|&|\+)\s*(placement|internship))",
+    r"live\s*(project\s*)?training|training\s*(and|&|\+)\s*placement)",
     re.I,
 )
 NO_BOND = re.compile(r"\b(no|without\s*any|zero)\s*(service\s*)?bond\b", re.I)
@@ -218,6 +218,7 @@ EXTRA_LINKS = [
     ("Infosys careers", "https://career.infosys.com/joblist"),
     ("Wipro careers", "https://careers.wipro.com/"),
     ("Accenture India careers", "https://www.accenture.com/in-en/careers/jobsearch"),
+    ("Glassdoor India: software engineer jobs", "https://www.glassdoor.co.in/Job/india-software-engineer-fresher-jobs-SRCH_IL.0,5_IN115_KO6,31.htm"),
     ("Unstop: jobs & hiring challenges", "https://unstop.com/jobs"),
     ("Reddit r/developersIndia: hiring posts", "https://www.reddit.com/r/developersIndia/search/?q=hiring%20fresher&sort=new"),
     ("Google Jobs: software engineer fresher India", "https://www.google.com/search?q=software+engineer+fresher+jobs+india&ibp=htl;jobs"),

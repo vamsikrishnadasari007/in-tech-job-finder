@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 
 from selectolax.lexbor import LexborHTMLParser as HTMLParser
 
-from collectors.http import client, get
+from collectors.http import RateLimited, client, get
 from pipeline.filters import prefilter_reason
 from pipeline.model import Job, html_to_text
 
@@ -37,7 +37,13 @@ def collect(mode: str = "full", known: dict | None = None, log=print) -> list[Jo
     pages = 4 if mode == "quick" else 40
     found: dict[str, Job] = {}
     for page in range(pages):
-        r = get(c, SEARCH, params=dict(years=0, offset=page * PAGE, limit=PAGE))
+        try:
+            r = get(c, SEARCH, params=dict(years=0, offset=page * PAGE, limit=PAGE), pause=(2.0, 4.0))
+        except RateLimited:
+            if not found:
+                raise
+            log(f"  Instahyre: rate-limited after {page} pages; keeping what we have")
+            break
         rows = r.json().get("objects") or []
         batch = [j for j in (_parse(x, now) for x in rows) if j]
         for j in batch:
@@ -54,7 +60,9 @@ def collect(mode: str = "full", known: dict | None = None, log=print) -> list[Jo
     log(f"  Instahyre: {len(jobs)} postings, {len(need)} new & worth opening")
     for j in need[:MAX_DETAILS]:
         try:
-            tree = HTMLParser(get(c, j.url).text)
+            tree = HTMLParser(get(c, j.url, pause=(1.5, 3.0)).text)
+        except RateLimited:
+            break
         except Exception:
             continue
         node = tree.css_first("div.job-description, #job-description, div.description, section.job-details")
