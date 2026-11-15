@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
   if (!authorized(req)) return res.status(401).json({ error: "Unauthorized" });
 
   // Strip a byte-order mark / whitespace that a Windows pipe may have added to the stored value.
-  const GITHUB_TOKEN = String(process.env.GITHUB_TOKEN || "").replace(/[﻿\s]/g, "");
+  const GITHUB_TOKEN = String(process.env.GITHUB_TOKEN || "").replace(/[FEFF\s]/g, "");
   const GITHUB_REPO = String(process.env.GITHUB_REPO || "").trim();
   if (!GITHUB_TOKEN || !GITHUB_REPO) return res.status(503).json({ error: "GitHub not configured" });
   const mode = (req.query && req.query.mode) === "full" ? "full" : "quick";

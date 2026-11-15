@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
   if (!(await requirePin(req, res))) return;
   try {
     // Strip a byte-order mark / whitespace that a Windows pipe may have added to the stored value.
-    const GITHUB_TOKEN = String(process.env.GITHUB_TOKEN || "").replace(/[﻿\s]/g, "");
+    const GITHUB_TOKEN = String(process.env.GITHUB_TOKEN || "").replace(/[FEFF\s]/g, "");
     const GITHUB_REPO = String(process.env.GITHUB_REPO || "").trim();
     if (!GITHUB_TOKEN || !GITHUB_REPO) {
       return res.status(503).json({ error: "Auto-search isn't connected yet. Jobs update on the regular schedule." });
