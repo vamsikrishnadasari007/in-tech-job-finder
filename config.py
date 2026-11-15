@@ -73,7 +73,8 @@ NOT_DEV = re.compile(
     r"delivery\s*(manager|executive|boy)|insurance|loan|relationship|logistics|warehouse|driver|nurse|pharma\w*|medical|"
     r"doctor|legal|lawyer|chef|guard|annotat\w*|labell?(ing|er)|transcri\w*|"
     r"social\s*media|community|events?|procurement|purchase|store|retail|ad\s*ops|growth\s*hacker|influencer|"
-    r"speaker|subject\s*matter\s*expert|sme|rater|evaluator|search\s*quality|translator|linguist)\b",
+    r"speaker|subject\s*matter\s*expert|sme|rater|evaluator|search\s*quality|translator|linguist|"
+    r"cnc|vmc|cam\s*programmer|plc|scada|autocad|solidworks|revit|draughtsman|draftsman)\b",
     re.I,
 )
 

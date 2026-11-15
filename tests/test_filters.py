@@ -215,3 +215,16 @@ def test_consultancy(company, yes):
 ])
 def test_lpa(lo, hi, per, out):
     assert lpa(lo, hi, per) == out
+
+
+def test_months_range_text():
+    assert job("Software Developer", "Experience: 1 month of experience in React").exp_range == "1 month+"
+
+
+def test_senior_internship_type_still_hidden():
+    j = job("Senior Specialist - Software Engineering", work_type="Internship")
+    assert j.hidden_reason == "senior / too much experience required"
+
+
+def test_cnc_programmer_not_dev():
+    assert job("VMC CAM Programmer").hidden_reason == "not a developer role"

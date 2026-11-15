@@ -86,9 +86,12 @@ def required_years(text: str) -> list[tuple[float, float | None]]:
 
 
 def _range_text(lo: float, hi: float | None) -> str:
+    def y(v):
+        m = round(v * 12)
+        return (f"{m} month" + ("s" if m != 1 else "")) if 0 < v < 1 else f"{v:g} yrs"
     if hi is not None and hi > lo:
-        return f"{lo:g}–{hi:g} yrs"
-    return f"{lo:g}+ yrs" if lo else ""
+        return f"{lo:g}–{y(hi)}" if lo >= 1 or lo == 0 and hi >= 1 else f"{y(lo)}–{y(hi)}"
+    return f"{y(lo)}+" if lo else ""
 
 
 def _label(need: float) -> tuple[str, bool]:
@@ -216,7 +219,7 @@ def prefilter_reason(job: Job) -> str:
     Runs BEFORE any slow detail request. '' means: worth fetching the full description."""
     if config.NOT_DEV.search(job.title):
         return "not a developer role"
-    if config.SENIOR_TITLE.search(job.title) and not job.is_internship:
+    if config.SENIOR_TITLE.search(job.title) and not _INTERN.search(job.title):
         return "senior / too much experience required"
     if not match_roles(job.title):
         return "not a developer role"

@@ -7,3 +7,6 @@ __pycache__/
 !.env.example
 site/data/
 *.local.sql
+
+.vercel
+.env*
