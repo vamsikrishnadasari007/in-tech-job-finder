@@ -15,7 +15,8 @@ module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
   if (!authorized(req)) return res.status(401).json({ error: "Unauthorized" });
 
-  const { GITHUB_TOKEN, GITHUB_REPO } = process.env;
+  const GITHUB_TOKEN = String(process.env.GITHUB_TOKEN || "").replace(/[FEFFs]/g, "");
+    const GITHUB_REPO = String(process.env.GITHUB_REPO || "").trim();
   if (!GITHUB_TOKEN || !GITHUB_REPO) return res.status(503).json({ error: "GitHub not configured" });
   const mode = (req.query && req.query.mode) === "full" ? "full" : "quick";
   const gh = (path, init = {}) => fetch(`https://api.github.com/repos/${GITHUB_REPO}${path}`, {

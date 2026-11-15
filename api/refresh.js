@@ -10,7 +10,8 @@ module.exports = async (req, res) => {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
   if (!(await requirePin(req, res))) return;
   try {
-    const { GITHUB_TOKEN, GITHUB_REPO } = process.env;
+    const GITHUB_TOKEN = String(process.env.GITHUB_TOKEN || "").replace(/[FEFFs]/g, "");
+    const GITHUB_REPO = String(process.env.GITHUB_REPO || "").trim();
     if (!GITHUB_TOKEN || !GITHUB_REPO) {
       return res.status(503).json({ error: "Auto-search isn't connected yet. Jobs update on the regular schedule." });
     }
